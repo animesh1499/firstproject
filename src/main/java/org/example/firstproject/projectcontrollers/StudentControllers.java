@@ -1,5 +1,6 @@
 package org.example.firstproject.projectcontrollers;
 
+import jakarta.validation.Valid;
 import org.example.firstproject.modals.Student;
 import org.example.firstproject.services.StudentServices;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class StudentControllers {
     }
 
     @PostMapping(value = "/insertStudentDetails", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<String> insertStudentDetails(@RequestBody List<Student> students){
+    public ResponseEntity<String> insertStudentDetails(@Valid @RequestBody List<Student> students){
         studentServices.insertStudents(students);
         return ResponseEntity.ok("Inserted student records!");
     }
