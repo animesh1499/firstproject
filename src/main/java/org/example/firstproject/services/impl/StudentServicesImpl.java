@@ -1,6 +1,7 @@
 package org.example.firstproject.services.impl;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.example.firstproject.exceptions.StudentException;
 import org.example.firstproject.modals.Student;
 import org.example.firstproject.repositories.StudentDAO;
@@ -10,7 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class StudentServicesImpl implements StudentServices {
 
@@ -24,8 +25,10 @@ public class StudentServicesImpl implements StudentServices {
                 studentDAO.executeInsertStudent(student);
             }
         }catch(DataAccessException e){
+            log.error("Error inserting records with exception: {}", e.getStackTrace());
             throw new StudentException("There was error inserting students in DB!");
         }catch (Exception e){
+            log.error("Error inserting records with exception: {}", e.getStackTrace());
             throw new StudentException(e.getMessage());
         }
     }
@@ -35,8 +38,10 @@ public class StudentServicesImpl implements StudentServices {
         try {
             return studentDAO.executeGetStudent(course);
         }catch (DataAccessException e){
+            log.error("Error getting records with exception: {}", e.getStackTrace());
             throw new StudentException("There was error getting students from DB!");
         }catch(Exception ex){
+            log.error("Error getting records with exception: {}", ex.getStackTrace());
             throw new StudentException(ex.getMessage());
         }
     }
