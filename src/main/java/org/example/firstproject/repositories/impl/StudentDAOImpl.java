@@ -12,8 +12,8 @@ import java.util.Map;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
-    private final String INSERT_STUDENT_QUERY = "insert into analytics.students (ID, name, gender, course) values (?, ?, ?, ?)";
-    private final String GET_STUDENT_QUERY = "select * from analytics.students where course = ?";
+    private final String INSERT_STUDENT_QUERY = "insert into analytics.student (ID, name, gender, course) values (?, ?, ?, ?)";
+    private final String GET_STUDENT_QUERY = "select * from analytics.student where course = ?";
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -29,7 +29,7 @@ public class StudentDAOImpl implements StudentDAO {
                 (String) studentMap.get("name"),
                 (String) studentMap.get("gender"),
                 (String) studentMap.get("course"),
-                (int) studentMap.get("ID")))
+                (String) studentMap.get("ID")))
                 .toList();
     }
 }

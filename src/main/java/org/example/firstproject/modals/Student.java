@@ -20,5 +20,5 @@ public class Student {
     private String course;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private int id;
+    private String id;
 }
