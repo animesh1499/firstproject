@@ -24,12 +24,9 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public List<Student> executeGetStudent(String course) {
-        List<Map<String, Object>> students = jdbcTemplate.queryForList(GET_STUDENT_QUERY, course);
-        return students.stream().map(studentMap -> new Student(
-                (String) studentMap.get("name"),
-                (String) studentMap.get("gender"),
-                (String) studentMap.get("course"),
-                (String) studentMap.get("ID")))
-                .toList();
+        return jdbcTemplate.query(GET_STUDENT_QUERY, new Object[]{course}, (rs, rowNum) -> {
+            Student student = new Student(rs.getString("name"), rs.getString("gender"), rs.getString("course"), rs.getString("id"));
+            return student;
+        });
     }
 }
