@@ -30,7 +30,7 @@ public class StudentControllers {
 
     @GetMapping(value = "/getStudentDetails", produces = "application/json")
     public ResponseEntity<List<Student>> getStudentDetails(@RequestParam(value = "course", required = true) String course){
-        log.error("Started getting students for course : {}", course);
+        log.info("Started getting students for course : {}", course);
         List<Student> students = studentServices.getStudentDetailsAccordingToCourse(course);
         log.info("Completed getting students for course : {}", course);
         return new ResponseEntity<>(students, HttpStatus.OK);
