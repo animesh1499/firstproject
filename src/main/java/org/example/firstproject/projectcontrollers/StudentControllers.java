@@ -1,11 +1,13 @@
 package org.example.firstproject.projectcontrollers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.example.firstproject.modals.Student;
 import org.example.firstproject.services.StudentServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +36,11 @@ public class StudentControllers {
         List<Student> students = studentServices.getStudentDetailsAccordingToCourse(course);
         log.info("Completed getting students for course : {}", course);
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/csrf-token")
+    public CsrfToken getCsrfToken(HttpServletRequest request){
+        return (CsrfToken) request.getAttribute("_csrf");
     }
 
 }
