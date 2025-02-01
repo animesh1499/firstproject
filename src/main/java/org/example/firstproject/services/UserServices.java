@@ -4,4 +4,6 @@ import org.example.firstproject.modals.Users;
 
 public interface UserServices {
     public Users register(Users user);
+
+    String verify(Users user);
 }
