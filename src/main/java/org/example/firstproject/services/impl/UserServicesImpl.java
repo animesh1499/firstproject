@@ -8,7 +8,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServicesImpl implements UserServices {
@@ -27,6 +29,7 @@ public class UserServicesImpl implements UserServices {
     @Override
     public Users register(Users user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //user.setAuthProvider(Users.AuthProvider.LOCAL);
         return userDAO.save(user);
     }
 
@@ -38,4 +41,18 @@ public class UserServicesImpl implements UserServices {
         }
         return "Failure";
     }
+
+    /*@Transactional
+    public void processOAuthPostLogin(OAuth2User auth2User){
+        String email = auth2User.getAttribute("email");
+        Users user = userDAO.findByEmail(email);
+
+        if(user == null){
+            Users newUser = new Users();
+            newUser.setEmail(email);
+            newUser.setUsername(auth2User.getAttribute("name"));
+            newUser.setAuthProvider(Users.AuthProvider.GOOGLE);
+            userDAO.save(newUser);
+        }
+    }*/
 }

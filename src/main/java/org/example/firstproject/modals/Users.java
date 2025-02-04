@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +17,15 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
+    @Column(unique = true)
     private String username;
     @NotNull
     private String password;
+    /*private String email;
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
+
+    public enum AuthProvider{
+        LOCAL, GOOGLE
+    }*/
 }

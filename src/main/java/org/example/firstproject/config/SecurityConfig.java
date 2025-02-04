@@ -1,6 +1,7 @@
 package org.example.firstproject.config;
 
 import org.example.firstproject.filters.JWTFilter;
+import org.example.firstproject.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private JWTFilter jwtFilter;
@@ -32,12 +33,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(customizer -> customizer.disable());
         httpSecurity.authorizeHttpRequests(request -> request
-                .requestMatchers("login", "register")
+                .requestMatchers("/login", "/register")
                 .permitAll()
                 .anyRequest().authenticated());
         //httpSecurity.formLogin( Customizer.withDefaults());
         httpSecurity.httpBasic(Customizer.withDefaults());
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.logout(logout -> logout
+                .logoutUrl("/logout")
+                .permitAll());
         //httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();
     }
