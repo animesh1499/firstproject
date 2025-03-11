@@ -19,13 +19,12 @@ public class Users {
     @NotNull
     @Column(unique = true)
     private String username;
-    @NotNull
     private String password;
-    /*private String email;
+    private String email;
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider;
 
     public enum AuthProvider{
         LOCAL, GOOGLE
-    }*/
+    }
 }

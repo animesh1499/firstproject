@@ -27,7 +27,7 @@ public class UserServicesImpl implements UserServices {
     @Override
     public Users register(Users user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        //user.setAuthProvider(Users.AuthProvider.LOCAL);
+        user.setAuthProvider(Users.AuthProvider.LOCAL);
         return userDAO.save(user);
     }
 
