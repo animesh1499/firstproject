@@ -24,6 +24,7 @@ public class StudentControllers {
     @PostMapping(value = "/insertStudentDetails", produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> insertStudentDetails(@Valid @RequestBody List<Student> students){
         log.info("Started inserting students for requestBody : {}", students);
+        log.info("After Started inserting students for requestBody!");
         studentServices.insertStudents(students);
         log.info("Completed insertion for requestBody : {}", students);
         String message = "Inserted student records!";
